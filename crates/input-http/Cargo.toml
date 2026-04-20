@@ -1,0 +1,13 @@
+[package]
+name = "anchor-input-http"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+anchor-core.workspace = true
+axum.workspace = true
+bytes.workspace = true
+serde_json.workspace = true
+tracing.workspace = true

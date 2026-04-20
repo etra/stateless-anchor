@@ -13,6 +13,12 @@ target
 # Contains mutation testing data
 **/mutants.out*/
 
+# User-local configs derived from their *.sample counterparts. These may
+# contain S3 / catalog credentials — commit the .sample, not these.
+test/server/config.yaml
+test/query-engine/etc/catalog/*.properties
+!test/query-engine/etc/catalog/*.properties.sample
+
 # RustRover
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore

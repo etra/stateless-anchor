@@ -1,0 +1,26 @@
+# Cloudflare R2 Data Catalog (Iceberg REST). Copy this to
+# cloudflare.properties and fill in your account/bucket/token/S3 creds —
+# that file is gitignored so secrets don't get committed.
+#
+# Auth model: the Cloudflare API token is used as a Bearer token for the
+# REST catalog. The S3 access/secret pair is a separate set of R2 creds
+# used by the object-IO path. Both come from the R2 dashboard.
+#
+# Usage:
+#   docker exec -it trino trino --catalog cloudflare
+#   trino> SHOW SCHEMAS;
+
+connector.name=iceberg
+iceberg.catalog.type=rest
+iceberg.rest-catalog.uri=https://catalog.cloudflarestorage.com/<ACCOUNT_ID>/<BUCKET_NAME>
+iceberg.rest-catalog.warehouse=<ACCOUNT_ID>_<BUCKET_NAME>
+
+iceberg.rest-catalog.security=OAUTH2
+iceberg.rest-catalog.oauth2.token=<CLOUDFLARE_API_TOKEN>
+
+fs.native-s3.enabled=true
+s3.endpoint=https://<ACCOUNT_ID>.r2.cloudflarestorage.com
+s3.region=auto
+s3.aws-access-key=<R2_ACCESS_KEY_ID>
+s3.aws-secret-key=<R2_SECRET_ACCESS_KEY>
+s3.path-style-access=true

@@ -1,0 +1,52 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/config",
+    "crates/core",
+    "crates/input-http",
+    "crates/output-iceberg",
+    "crates/anchor",
+]
+
+[workspace.package]
+edition = "2021"
+license = "MIT"
+rust-version = "1.80"
+
+[workspace.dependencies]
+anyhow = "1"
+async-trait = "0.1"
+bytes = "1"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+serde_yaml_ng = "0.10"
+thiserror = "2"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "signal", "net"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+uuid = { version = "1", features = ["v4"] }
+
+axum = "0.8"
+
+iceberg = "0.9"
+iceberg-catalog-rest = "0.9"
+# iceberg 0.9 pulled S3/GCS/Azure out of core — RestCatalog now requires an
+# explicit StorageFactory. The companion crate wraps opendal. Default
+# features include opendal-s3, which is all we need for S3/R2/MinIO.
+iceberg-storage-opendal = "0.9"
+
+# iceberg-catalog-rest pulls reqwest without a TLS backend, so https://
+# URLs fail with "invalid URL, scheme is not http". Listing reqwest here
+# with rustls-tls turns TLS on via feature unification.
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls"] }
+
+arrow-array = "57"
+arrow-json = "57"
+arrow-schema = "57"
+arrow-select = "57"
+parquet = "57"
+
+anchor-config = { path = "crates/config" }
+anchor-core = { path = "crates/core" }
+anchor-input-http = { path = "crates/input-http" }
+anchor-output-iceberg = { path = "crates/output-iceberg" }

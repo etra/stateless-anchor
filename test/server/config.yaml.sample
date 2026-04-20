@@ -1,0 +1,13 @@
+http:
+  bind: 0.0.0.0:8080
+
+iceberg:
+  catalog_uri: http://localhost:8181
+  warehouse: s3://warehouse
+  # token: <bearer>        # required for Cloudflare R2 Data Catalog; omit for MinIO / local REST catalogs
+  storage:
+    s3.endpoint: http://localhost:9000
+    s3.region: us-east-1
+    s3.access-key-id: minioadmin
+    s3.secret-access-key: minioadmin
+    s3.path-style-access: "true"
